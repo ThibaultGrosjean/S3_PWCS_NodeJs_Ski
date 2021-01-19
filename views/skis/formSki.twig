@@ -1,0 +1,90 @@
+<div class="form-group">
+    <label>Nom :</label>
+    <input name="nom_ski" type="text"  size="18"  value="{{skis.nom_ski|default('')}}" class="form-control {% if erreurs.nom_ski is defined %}is-invalid{% endif %}">
+    {% for erreur in erreurs %}
+        {% if erreur.param == 'nom_ski' %}
+            <br><p class="alert alert-danger"> {{ erreur.msg }}</p>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="form-group">
+    <label>Type :</label>
+    <select name="type_ski_id" class="form-control {% if erreurs.type_ski_id is defined %}is-invalid{% endif %}">
+        {% if  skis.typeSki.id is not defined or skis.typeSki.id is empty   %}
+            <option value="">Veuillez sélectionner un type de ski</option>
+        {% endif %}
+        {% for typeSki in typeSkis %}
+            <option value="{{ typeSki.id }}"
+                {% if skis.typeSki.id is defined and typeSki.id == skis.typeSki.id %}selected{% endif %}
+                {% if skis.type_ski_id is defined and typeSki.id == skis.type_ski_id %}selected{% endif %}>
+                {{ typeSki.libelle }}
+            </option>
+        {% endfor %}
+    </select>
+    {% for erreur in erreurs %}
+        {% if erreur.param == 'type_ski_id' %}
+            <br><p class="alert alert-danger"> {{ erreur.msg }}</p>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="form-group">
+    <label>Taille :</label>
+    <input name="taille" type="text"  size="18"  value="{{skis.taille|default('')}}" class="form-control {% if erreurs.taille is defined %}is-invalid{% endif %}">
+    {% for erreur in erreurs %}
+        {% if erreur.param == 'taille' %}
+            <br><p class="alert alert-danger"> {{ erreur.msg }}</p>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="form-group">
+    <label>Etat :</label>
+    <input name="etat" type="text"  size="18"  value="{{skis.etat|default('')}}" class="form-control {% if erreurs.etat is defined %}is-invalid{% endif %}">
+    {% for erreur in erreurs %}
+        {% if erreur.param == 'etat' %}
+            <br><p class="alert alert-danger"> {{ erreur.msg }}</p>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="form-group">
+    <label>Date d'Achat :</label>
+    <input name="date_achat" type="text"  size="18" placeholder="JJ/MM/AAAA"
+           value="{{ (date_achat is defined) and (date_achat is not null) ? date_achat | date("d/m/Y") : skis.date_achat | default('') }}"
+           class="form-control {% if erreurs.date_achat is defined %}is-invalid{% endif %}">
+    {% for erreur in erreurs %}
+        {% if erreur.param == 'date_achat' %}
+            <br><p class="alert alert-danger"> {{ erreur.msg }}</p>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="form-group">
+    <label>Prix d'Achat :</label>
+    <input name="prix_achat" type="text"  size="18"  value="{{skis.prix_achat|default('')}}" class="form-control {% if erreurs.prix_achat is defined %}is-invalid{% endif %}">
+    {% for erreur in erreurs %}
+        {% if erreur.param == 'prix_achat' %}
+            <br><p class="alert alert-danger"> {{ erreur.msg }}</p>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="form-group">
+    <label>Prix de Location :</label>
+    <input name="prix_location" type="text"  size="18"  value="{{skis.prix_location|default('')}}" class="form-control {% if erreurs.prix_location is defined %}is-invalid{% endif %}">
+    {% for erreur in erreurs %}
+        {% if erreur.param == 'prix_location' %}
+            <br><p class="alert alert-danger"> {{ erreur.msg }}</p>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% if button is defined and button == 'Modifier' %}
+    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="id" value="{{ skis.id | default('')}}">
+{%  endif %}
+
+<button type="submit" class="btn btn-primary m-1">{{ button|default('Valider') }}</button>
+<a href="/list/skis" class="btn btn-danger m-1">Annuler</a>

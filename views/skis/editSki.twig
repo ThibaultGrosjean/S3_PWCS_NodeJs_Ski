@@ -1,0 +1,9 @@
+{% extends "layout.twig" %}
+{% block body %}
+    <div class="container" style="margin-top:8%;">
+        <form method="post" action="/edit/skis">
+            <h1>Modifier le ski {{ skis.nom_ski }}</h1><br>
+            {% include './formSki.twig' with {'button': 'Modifier'} %}
+        </form>
+    </div>
+{% endblock %}
